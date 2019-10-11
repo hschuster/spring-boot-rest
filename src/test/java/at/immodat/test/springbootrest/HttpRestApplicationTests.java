@@ -20,12 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Ignore("Manuelle Tests. Rest-Service und Keycloak müssen gestartet sein.")
 public class HttpRestApplicationTests {
 
     //------------------------------------------------------------------------------------------------------------------
     @Test
     public void testWithoutToken() throws Exception {
 
+        // Aufruf ohne Token muss 401 retournieren...
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet restRequest = new HttpGet("http://localhost:8484/test?test=hoemi");
         HttpResponse restResponse = client.execute(restRequest);
@@ -38,7 +40,19 @@ public class HttpRestApplicationTests {
 
     //------------------------------------------------------------------------------------------------------------------
     @Test
-    @Ignore("Manueller Test. Rest-Service und Keycloak müssen gestartet sein.")
+    public void testUnsecured() throws Exception {
+
+        // Aufruf einer ungesicherten (siehe application.properties) Methode darf nicht abgewiesen werden...
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet restRequest = new HttpGet("http://localhost:8484/testUnsecured?test=hoemi");
+        HttpResponse restResponse = client.execute(restRequest);
+
+        String restResponseString = EntityUtils.toString(restResponse.getEntity());
+        Assert.assertEquals("***hoemi***", restResponseString);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    @Test
     public void testWithHttp() throws Exception {
         // Keycloak client - access type - public:
         //      curl -d "client_id=login-app" -d "username=user1" -d "password=user1" -d "grant_type=password" "http://sbspielwiese:8180/auth/realms/SpringBootKeycloak/protocol/openid-connect/token"

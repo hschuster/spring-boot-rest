@@ -23,4 +23,11 @@ public class SpringRestController {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+    @GetMapping("/testUnsecured")
+    public @ResponseBody ResponseEntity<String> testUnsecured(@RequestParam(value="test", required = false) String test) {
+        System.out.println("Received parameter: " + test);
+        return new ResponseEntity<>("***" + test + "***", HttpStatus.OK);
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 }
