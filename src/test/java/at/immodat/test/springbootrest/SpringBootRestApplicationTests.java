@@ -24,10 +24,20 @@ public class SpringBootRestApplicationTests {
     @Test
     public void test() throws Exception {
 
+
         mockMvc.perform(get("/test?test=hoemi"))
                 .andExpect(content().string("***hoemi***"))
                 .andExpect(status().isOk());
     }
-    //------------------------------------------------------------------------------------------------------------------
 
+    //------------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testWithHttp() {
+        // Keycloak client - access type - public:
+        //      curl -d "client_id=login-rest" -d "username=user1" -d "password=user1" -d "grant_type=password" "http://sbspielwiese:8180/auth/realms/SpringBootKeycloak/protocol/openid-connect/token"
+        // Erhaltenen "acess_token" als Authorization-Header mitschicken
+        //      curl -X GET http://localhost:8484/test?test=hoemi -H "Authorization: Bearer eyJhbGciOiJSUzI..."
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 }
