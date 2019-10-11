@@ -10,6 +10,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -22,9 +23,10 @@ public class HttpRestApplicationTests {
 
     //------------------------------------------------------------------------------------------------------------------
     @Test
+    @Ignore("Manueller Test. Rest-Service und Keycloak müssen gestartet sein.")
     public void testWithHttp() throws Exception {
         // Keycloak client - access type - public:
-        //      curl -d "client_id=login-rest" -d "username=user1" -d "password=user1" -d "grant_type=password" "http://sbspielwiese:8180/auth/realms/SpringBootKeycloak/protocol/openid-connect/token"
+        //      curl -d "client_id=login-app" -d "username=user1" -d "password=user1" -d "grant_type=password" "http://sbspielwiese:8180/auth/realms/SpringBootKeycloak/protocol/openid-connect/token"
         // Erhaltenen "acess_token" als Authorization-Header mitschicken
         //      curl -X GET http://localhost:8484/test?test=hoemi -H "Authorization: Bearer eyJhbGciOiJSUzI..."
         // HTTP CLient aufsetzen...
@@ -33,7 +35,7 @@ public class HttpRestApplicationTests {
 
         // Login Request...
         final String realm = "SpringBootKeycloak";
-        final String clientId = "login-rest";
+        final String clientId = "login-app";
         final String userName = "user1";
         final String password = "user1";
 
