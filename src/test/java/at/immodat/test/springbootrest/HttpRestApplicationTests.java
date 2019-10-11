@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -64,7 +65,7 @@ public class HttpRestApplicationTests {
         String restResponseString = EntityUtils.toString(restResponse.getEntity());
         System.out.println("Rest response: " + restResponseString);
 
-
+        Assert.assertEquals("***hoemi***", restResponseString);
     }
 
     //------------------------------------------------------------------------------------------------------------------
