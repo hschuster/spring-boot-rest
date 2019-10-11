@@ -1,6 +1,7 @@
 package at.immodat.test.springbootrest;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -20,6 +21,20 @@ import java.util.List;
 import java.util.Map;
 
 public class HttpRestApplicationTests {
+
+    //------------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testWithoutToken() throws Exception {
+
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet restRequest = new HttpGet("http://localhost:8484/test?test=hoemi");
+        HttpResponse restResponse = client.execute(restRequest);
+
+        final int statusCode = restResponse.getStatusLine().getStatusCode();
+        System.out.println("Status code: " + statusCode);
+
+        Assert.assertEquals(HttpStatus.SC_UNAUTHORIZED, statusCode);
+    }
 
     //------------------------------------------------------------------------------------------------------------------
     @Test
