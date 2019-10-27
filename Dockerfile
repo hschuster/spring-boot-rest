@@ -1,6 +1,6 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 MAINTAINER Hoemi
 VOLUME /tmp
-ARG JAR_FILE
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+COPY target/*.jar app.jar
+EXPOSE 8484
+ENTRYPOINT ["java","-jar","/app.jar"]
